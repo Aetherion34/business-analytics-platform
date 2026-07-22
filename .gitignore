@@ -1,4 +1,9 @@
 .venv/
+
+data/raw/
+data/processed/
+data/errors/
+
 __pycache__/
 *.pyc
 data/raw/
