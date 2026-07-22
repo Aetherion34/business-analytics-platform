@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 from constants import VALID_STATUS,DEFAULT_STATUS
-class Cleaner:
+class Orders_cleaner:
     def __init__(self, orders):
         self.orders = orders
 

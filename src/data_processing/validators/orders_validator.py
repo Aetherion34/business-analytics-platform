@@ -17,7 +17,7 @@ an error report for further analysis.
 import pandas as pd
 from constants import VALID_STATUS
 
-class Validator():
+class Orders_validator():
     def __init__(self, orders = None):
         self.orders = pd.DataFrame({
             "order_id": [1, 1, 2, 3, 4],
@@ -74,8 +74,3 @@ class Validator():
         ]
         order_ids = invalid_dates_order["order_id"]
         return pd.Series("invalid_date_sequence", index=order_ids)
-
-
-if __name__ == "__main__":
-    v = Validator()
-    print(v.validate())
