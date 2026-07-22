@@ -1,0 +1,6 @@
+# No order id duplicates, 
+# One customer id cannot have 2 orders at the same timestamp,
+# order status must not be Null, 
+# Dates and time must be valid
+# Order deliver carrier date must be after approve date
+# order deiver customer date must be after deliver carrier date
