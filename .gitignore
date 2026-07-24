@@ -1,14 +1,86 @@
-# Virtual environment
-.venv/
+# =========================
+# Python
+# =========================
 
-# Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+
+# =========================
+# Jupyter Notebook
+# =========================
+*.ipynb
+.ipynb_checkpoints/
+
+# =========================
 # Data
+# =========================
+
+# Raw datasets
 data/raw/
+
+# Processed/generated datasets
 data/processed/
+
+# Validation errors/reports generated automatically
 data/errors/
 
-# Environment variables
+
+# =========================
+# Environment & secrets
+# =========================
+
 .env
+.env.*
+*.secret
+
+
+# =========================
+# IDE / Editors
+# =========================
+
+.vscode/
+.idea/
+
+# Jupyter temporary files
+.jupyter/
+
+
+# =========================
+# OS files
+# =========================
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+
+# =========================
+# Logs
+# =========================
+
+*.log
+
+
+# =========================
+# Temporary files
+# =========================
+
+*.tmp
+*.temp
+*.bak
