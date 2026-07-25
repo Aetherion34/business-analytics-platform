@@ -19,11 +19,22 @@ class Customers_validator:
     def __init__(self, customers):
         self.customers = customers
 
+    def validate(self):
+        all_errors = pd.concat([
+            self.check_inconsistent_customer_data(),
+            self.check_customer_zip_code_prefix(),
+            self.check_customer_city(),
+            self.check_customer_state(),
+        ])
+        errors_by_order = all_errors.groupby(level=0).apply(set).to_dict()
+
     def check_inconsistent_customer_data(self):
         grouped = self.customers.groupby("customer_unique_id")
         count_uniques = grouped[["customer_zip_code_prefix", "customer_city", "customer_state"]].nunique()
         errors = (count_uniques > 1).any(axis=1)
-        customers_id = errors.index
+        invalid_customers_id = errors[errors].index
+        customers_id_mask = (self.customers["customer_unique_id"].isin(invalid_customers_id))
+        customers_id = self.customers[customers_id_mask]["customer_id"]
         return pd.Series("Inconsistent customer data", index = customers_id.values)
 
     def check_customer_zip_code_prefix(self):
