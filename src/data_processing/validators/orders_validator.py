@@ -17,7 +17,7 @@ an error report for further analysis.
 import pandas as pd
 from constants import VALID_STATUS
 
-class Orders_validator():
+class OrdersValidator():
     def __init__(self, orders):
         self.orders = orders
         self.orders["order_purchase_timestamp"] = pd.to_datetime(self.orders["order_purchase_timestamp"])

@@ -7,3 +7,6 @@ def load_customers(path):
 
 def load_sellers(path):
     return pd.read_csv(path)
+
+def load_products(path):
+    return pd.read_csv(path)

@@ -15,7 +15,7 @@ an error report for further analysis.
 """
 import pandas as pd
 from constants import VALID_STATES
-class Customers_validator:
+class CustomersValidator:
     def __init__(self, customers):
         self.customers = customers
 
