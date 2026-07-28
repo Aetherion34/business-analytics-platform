@@ -38,12 +38,10 @@ class OrdersCleaner:
         )
         self.orders = self.orders[mask]
 
-
-        ...
     def save_report(self, error_list):
         serializable = {order_id: list(errors) for order_id, errors in error_list.items()}
         with open("data/errors/order_errors_report.json", "w") as f:
-            json.dump(serializable, f, indent=4)
+            json.dump(serializable, f, indent=4, ensure_ascii=False)
 
     def save_clean_data(self):
         self.orders.to_csv("data/processed/orders_list.csv", index = False)

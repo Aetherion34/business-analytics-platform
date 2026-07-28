@@ -35,25 +35,16 @@ class ProductValidator:
         mask = self.products[column].isna()
         product_ids = self.products[mask]["product_id"]
 
-        return pd.Series(
-            f"Missing {column}",
-            index=product_ids
-        )
+        return pd.Series(f"Missing {column}",index=product_ids)
 
     def check_positive_values(self, column: str):
         mask = self.products[column] <= 0
         product_ids = self.products[mask]["product_id"]
 
-        return pd.Series(
-            f"{column} must be positive",
-            index=product_ids
-        )
+        return pd.Series(f"{column} must be positive", index=product_ids)
 
     def check_duplicate_product_id(self):
         mask = self.products["product_id"].duplicated(keep=False)
         product_ids = self.products[mask]["product_id"]
 
-        return pd.Series(
-            "Duplicated product id value",
-            index=product_ids
-        )
+        return pd.Series("Duplicated product id value",index=product_ids)
