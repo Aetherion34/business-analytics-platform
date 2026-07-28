@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 from constants import VALID_STATUS,DEFAULT_STATUS
-class Orders_cleaner:
+class OrdersCleaner:
     def __init__(self, orders):
         self.orders = orders
 
@@ -42,8 +42,8 @@ class Orders_cleaner:
         ...
     def save_report(self, error_list):
         serializable = {order_id: list(errors) for order_id, errors in error_list.items()}
-        with open("data/errors/errors_report.json", "w") as f:
+        with open("data/errors/order_errors_report.json", "w") as f:
             json.dump(serializable, f, indent=4)
 
     def save_clean_data(self):
-        self.orders.to_csv("data/processed/order_list.csv", index = False)
+        self.orders.to_csv("data/processed/orders_list.csv", index = False)

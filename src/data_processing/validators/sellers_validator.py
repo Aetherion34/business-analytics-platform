@@ -12,7 +12,8 @@ class Seller_vaidator():
         ])
         errors_by_order = all_errors.groupby(level = 0).apply(set).to_dict()
     def check_seller_id(self):
-        mask = (self.sellers["seller_id"].isna)
+        mask = (self.sellers["seller_id"].isna() | 
+                self.sellers["seller_id"].duplicated(keep = "first"))
         invalid_ids = self.sellers[mask]["seller_id"]
         return pd.Series("Invalid seller id", index = invalid_ids.values)
 
