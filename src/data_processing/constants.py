@@ -11,3 +11,10 @@ VALID_STATES = [
     "RN", "RS", "RO", "RR", "SC", "SP",
     "SE", "TO"
 ]
+VALID_PAYMENT_TYPES = [
+    "credit_card"
+    "boleto"
+    "voucher"
+    "debit_card"
+    "not_defined"
+]

@@ -34,7 +34,7 @@ class OrderItemsValidator:
     def check_missing_value(self, column):
         mask = (self.order_items[column].isna())
         index = self.order_items.loc[mask].set_index(["order_id", "order_item_id"]).index
-        return pd.Series(f"Missing {column}", index = index)
+        return pd.Series(f"missing {column}", index = index)
 
     def check_positive_values(self, column):
         mask = (self.order_items[column] <= 0)
@@ -45,7 +45,7 @@ class OrderItemsValidator:
         dates = pd.to_datetime(self.order_items["shipping_limit_date"], errors = "coerce")
         mask = dates.isna()
         index = self.order_items.loc[mask].set_index(["order_id", "order_item_id"]).index
-        return pd.Series("Invalid shipping_limit_date", index = index)
+        return pd.Series("invalid shipping_limit_date", index = index)
 
     def check_valid_reference(self, column, valid_values):
         mask = ~(self.order_items[column].isin(valid_values))
