@@ -1,4 +1,5 @@
 import pandas as pd
+from rules.order_items_rules import REQUIRED_COLUMNS, POSITIVE_COLUMNS
 class OrderItemsValidator:
     def __init__(self, order_ids, product_ids, seller_ids, order_items):
         self.order_ids = order_ids
@@ -13,26 +14,13 @@ class OrderItemsValidator:
             "product_id": self.product_ids,
             "seller_id": self.seller_ids
         }
-        required_columns = [
-            "order_id",
-            "order_item_id",
-            "product_id",
-            "seller_id",
-            "price",
-            "freight_value"
-        ]
-        positive_columns = [
-            "order_item_id",
-            "freight_value",
-            "price"
-        ]
         for column, valid_values  in references.items():
             errors.append(self.check_valid_reference(column, valid_values))
 
-        for column in required_columns:
+        for column in REQUIRED_COLUMNS:
             errors.append(self.check_missing_value(column))
 
-        for column in positive_columns:
+        for column in POSITIVE_COLUMNS:
             errors.append(self.check_positive_values(column))
 
         errors.append(self.check_valid_shipping_limit_date())
