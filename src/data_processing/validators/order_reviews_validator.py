@@ -5,8 +5,7 @@ class OrderReviewsValidator:
     def __init__(self, order_reviews, order_ids):
         self.order_reviews = order_reviews
         self.order_ids = order_ids
-
-    #TODO
+        
     def validate(self):
         errors = [
             self.check_reviews_id_duplicates(),
