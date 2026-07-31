@@ -16,3 +16,6 @@ def load_order_items(path):
 
 def load_order_payments(path):
     return pd.read_csv(path)
+
+def load_order_reviews(path):
+    return pd.read_csv(path)

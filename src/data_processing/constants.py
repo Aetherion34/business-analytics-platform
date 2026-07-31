@@ -18,3 +18,5 @@ VALID_PAYMENT_TYPES = [
     "debit_card"
     "not_defined"
 ]
+MIN_REVIEW_SCORE = 1
+MAX_REVIEW_SCORE = 5
