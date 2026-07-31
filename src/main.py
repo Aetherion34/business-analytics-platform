@@ -8,4 +8,5 @@ products = Loader.load_products(BASE_DIR / "data" / "raw" / "data/raw/olist_prod
 order_items = Loader.load_order_items(BASE_DIR / "data" / "raw" / "data/raw/olist_order_items_dataset.csv")
 order_payments = Loader.load_order_items(BASE_DIR / "data" / "raw" / "data/raw/olist_order_payments_dataset.csv")
 order_reviews = Loader.load_order_items(BASE_DIR / "data" / "raw" / "data/raw/olist_order_reviews_dataset.csv")
-
+geolocation = Loader.load_geolocation(BASE_DIR / "data" / "raw" / "data/raw/olist_geolocation_dataset.csvs")
+product_category_translations = Loader.load_product_category_translations(BASE_DIR / "data" / "raw" / "data/raw/olist_product_category_name_translation_dataset.csv")

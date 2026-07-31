@@ -19,3 +19,9 @@ def load_order_payments(path):
 
 def load_order_reviews(path):
     return pd.read_csv(path)
+
+def load_geolocation(path):
+    return pd.read_csv(path)
+
+def load_product_category_translations(path):
+    return pd.read_csv(path)
