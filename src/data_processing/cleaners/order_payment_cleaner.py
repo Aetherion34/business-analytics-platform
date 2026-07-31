@@ -11,13 +11,16 @@ class OrderPaymentCeaner:
     def clean(self,error_report):
         self.save_report(error_report)
         self.clean_invalid_order_ids()
-        self.remove_duplicate_payment_sequences()
-        self.clean_invalid_payment_sequence()
+        self.clean_invalid_payment_type()
+
         for column in REQUIRED_COLUMNS:
             self.clean_missing_values(column)
-
+        
         for column in POSITIVE_COLUMNS:
             self.clean_negative_values(column)
+
+        self.remove_duplicate_payment_sequences()
+        self.clean_invalid_payment_sequence()
 
         self.save_clean_data()
         
@@ -32,15 +35,15 @@ class OrderPaymentCeaner:
 
     def clean_invalid_order_ids(self):
         mask = self.order_payments["order_id"].isin(self.order_ids)
-        self.order_payments = self.order_payments[~mask]
+        self.order_payments = self.order_payments[mask]
 
     def clean_invalid_payment_type(self):
         mask = self.order_payments["payment_type"].isin(VALID_PAYMENT_TYPES)
-        self.order_payments = self.order_payments[~mask]
+        self.order_payments = self.order_payments[mask]
 
     def remove_duplicate_payment_sequences(self):
-        self.order_payments.drop_duplicated(
-            subset = ["order_id", "payments_sequential"],
+        self.order_payments = self.order_payments.drop_duplicates(
+            subset = ["order_id", "payment_sequence"],
             keep = False
         )
 
@@ -52,9 +55,9 @@ class OrderPaymentCeaner:
         self.order_payments = self.order_payments[self.order_payments["order_id"].isin(mask[mask].index)]
 
     def save_report(self, error_report):
-        serializzable = {f"{order_id}|{payment_sequential}" : list(errors) for (order_id,payment_sequential), errors in error_report}
+        serializable = {f"{order_id}|{payment_sequential}" : list(errors) for (order_id,payment_sequential), errors in error_report.items()}
         with open("data/errors/order_payments_errors_report.json", "w") as f:
-            json.dump(serializzable, f, indent = 4)
+            json.dump(serializable, f, indent = 4)
 
     def save_clean_data(self):
         self.order_payments.to_csv("data/processed/order_payments_list.csv", index = False)
