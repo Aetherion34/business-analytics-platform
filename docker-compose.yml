@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: business_analytics_postgres
+    environment:
+      POSTGRES_USER: usman
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: business_analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

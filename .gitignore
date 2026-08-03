@@ -84,3 +84,12 @@ Desktop.ini
 *.tmp
 *.temp
 *.bak
+# =========================
+# Docker
+# =========================
+
+docker-compose.override.yml
+
+# PostgreSQL local data volumes
+postgres_data/
+*.sql.bak
