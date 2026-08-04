@@ -93,3 +93,7 @@ docker-compose.override.yml
 # PostgreSQL local data volumes
 postgres_data/
 *.sql.bak
+# =========================
+# Secret files
+# =========================
+*.env
