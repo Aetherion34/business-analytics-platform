@@ -1,11 +1,11 @@
-from constants import VALID_STATES
+from data_processing.constants import VALID_STATES
 import pandas as pd
 import json
 class CustomerCleaner():
     def __init__(self, customers):
         self.customers = customers
 
-    def clean_customers(self, error_list):
+    def clean(self, error_list):
         self.normalize_customer_city()
         self.normalize_customer_zip()
         self.remove_invalid_states()

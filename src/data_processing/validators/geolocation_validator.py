@@ -1,6 +1,6 @@
 import pandas as pd
-from constants import VALID_STATES
-from rules.geolocation_rules import  REQUIRED_COLUMNS
+from data_processing.constants import VALID_STATES
+from data_processing.rules.geolocation_rules import  REQUIRED_COLUMNS
 
 class GeolocationValidator:
     def __init__(self, geolocation):

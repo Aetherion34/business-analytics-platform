@@ -15,7 +15,7 @@ It separates valid records from invalid records and generates
 an error report for further analysis.
 """
 import pandas as pd
-from constants import VALID_STATUS
+from data_processing.constants import VALID_STATUS
 
 class OrdersValidator():
     def __init__(self, orders):

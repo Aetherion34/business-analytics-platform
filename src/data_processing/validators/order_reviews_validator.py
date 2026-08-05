@@ -1,6 +1,6 @@
 import pandas as pd
-from constants import MAX_REVIEW_SCORE, MIN_REVIEW_SCORE
-from rules.order_reviews_rules import DATE_COLUMNS, REQUIRED_COLUMNS
+from data_processing.constants import MAX_REVIEW_SCORE, MIN_REVIEW_SCORE
+from data_processing.rules.order_reviews_rules import DATE_COLUMNS, REQUIRED_COLUMNS
 class OrderReviewsValidator:
     def __init__(self, order_reviews, order_ids):
         self.order_reviews = order_reviews

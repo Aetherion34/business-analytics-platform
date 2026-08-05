@@ -1,6 +1,6 @@
 import pandas as pd
-from constants import VALID_STATES
-class Seller_vaidator():
+from data_processing.constants import VALID_STATES
+class SellersValidator():
     def __init__(self,sellers):
         self.sellers = sellers
     def validate(self):
@@ -11,6 +11,7 @@ class Seller_vaidator():
             self.check_seller_state()
         ])
         errors_by_order = all_errors.groupby(level = 0).apply(set).to_dict()
+        return errors_by_order
     def check_seller_id(self):
         mask = (self.sellers["seller_id"].isna() | 
                 self.sellers["seller_id"].duplicated(keep = "first"))
@@ -27,7 +28,7 @@ class Seller_vaidator():
         return pd.Series("Invalid seller city", index = invalid_ids.values)
     def check_seller_state(self):
         mask = (self.sellers["seller_state"].isna() |
-                self.sellers["sellers_state"].isin(VALID_STATES))
+                self.sellers["seller_state"].isin(VALID_STATES))
         invalid_ids = self.sellers[mask]["seller_id"]
         return pd.Series("Invalid seller state", index = invalid_ids.values)
     

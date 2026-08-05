@@ -1,7 +1,7 @@
 import pandas as pd
-from constants import VALID_PAYMENT_TYPES
-from rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
-class OrderPaymentValidator:
+from data_processing.constants import VALID_PAYMENT_TYPES
+from data_processing.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
+class OrderPaymentsValidator:
     def __init__(self, order_payments, order_ids):
         self.order_payments = order_payments
         self.order_ids = order_ids
@@ -10,7 +10,7 @@ class OrderPaymentValidator:
             self.check_order_id(),
             self.check_payment_type(),
             self.check_payment_sequential_key_uniqueness(),
-            self.check_payment_sequence(),
+            self.check_payment_sequential(),
         ]
         for column in REQUIRED_COLUMNS:
             errors.append(self.check_missing_values(column))
@@ -50,7 +50,7 @@ class OrderPaymentValidator:
         index = self.order_payments.loc[mask].set_index(["order_id","payment_sequential"]).index
         return pd.Series(f"payment sequential must be unique for each order", index = index)
 
-    def check_payment_sequence(self):
+    def check_payment_sequential(self):
         def check(seq):
             seq = seq.sort_values()
             return seq.diff().iloc[1:].eq(1).all()

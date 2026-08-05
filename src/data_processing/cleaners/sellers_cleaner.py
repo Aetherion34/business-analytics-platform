@@ -1,7 +1,7 @@
 import pandas as pd
-from constants import VALID_STATES
+from data_processing.constants import VALID_STATES
 import json
-class SellerCleaner():
+class SellersCleaner():
     def __init__(self, sellers):
         self.sellers = sellers
 
@@ -64,11 +64,11 @@ class SellerCleaner():
     
     def remove_invalid_states(self):
         mask = (self.sellers["seller_state"].isna() | ~self.sellers["seller_state"].isin(VALID_STATES))
-        self.sellers["seller_state"] = self.sellers[~mask]
+        self.sellers = self.sellers[~mask]
 
     def save_report(self, error_list):
         serializable = {seller_id: list(errors) for seller_id, errors in error_list.items()}
-        with open("data/errors/sellers_error_report.json") as f:
+        with open("data/errors/sellers_error_report.json", "w") as f:
             json.dump(serializable, f, indent = 4)
 
     def save_clean_data(self):

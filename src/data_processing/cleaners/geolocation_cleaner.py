@@ -1,15 +1,14 @@
 import pandas as pd
 import json
-from constants import VALID_STATES
-from rules.geolocation_rules import  REQUIRED_COLUMNS
+from data_processing.constants import VALID_STATES
+from data_processing.rules.geolocation_rules import  REQUIRED_COLUMNS
 class GeolocationCleaner:
-    def __init__(self, geolocations, error_report):
+    def __init__(self, geolocations):
         self.geolocations = geolocations
-        self.error_report = error_report
 
     #TODO
-    def clean(self):
-        self.save_report(self.error_report)
+    def clean(self, error_report):
+        self.save_report(error_report)
 
         self.remove_duplicates()
         self.normalize_zcp()

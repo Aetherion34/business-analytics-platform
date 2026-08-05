@@ -14,7 +14,7 @@ It separates valid records from invalid records and generates
 an error report for further analysis.
 """
 import pandas as pd
-from constants import VALID_STATES
+from data_processing.constants import VALID_STATES
 class CustomersValidator:
     def __init__(self, customers):
         self.customers = customers
@@ -27,6 +27,7 @@ class CustomersValidator:
             self.check_customer_state(),
         ])
         errors_by_order = all_errors.groupby(level=0).apply(set).to_dict()
+        return errors_by_order
 
     def check_inconsistent_customer_data(self):
         grouped = self.customers.groupby("customer_unique_id")

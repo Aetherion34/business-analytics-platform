@@ -1,8 +1,8 @@
 import pandas as pd
 import json
-from rules.product_category_name_translation_rules import  REQUIRED_COLUMNS
+from data_processing.rules.product_category_name_translation_rules import  REQUIRED_COLUMNS
 
-class ProductCategoryTranslationCleaner:
+class ProductCategoryNameTranslationCleaner:
     def __init__(self,translations):
         self.translations = translations
 
@@ -18,7 +18,7 @@ class ProductCategoryTranslationCleaner:
         self.save_clean_data()
 
     def normalize_text(self, column):
-        self.translations = self.translations[column].str.astype("string").str.strip().str.lower()
+        self.translations[column] = self.translations[column].astype("string").str.strip().str.lower()
 
     def remove_missing_values(self, column):
         mask = self.translations[column].isna()

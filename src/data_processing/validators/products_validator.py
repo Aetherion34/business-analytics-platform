@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class ProductValidator:
+class ProductsValidator:
     def __init__(self, products):
         self.products = products
 
@@ -15,7 +15,7 @@ class ProductValidator:
         numeric_columns = [
             "product_name_length",
             "product_description_length",
-            "product_photo_qty",
+            "product_photos_qty",
             "product_weight_g",
             "product_length_cm",
             "product_height_cm",

@@ -80,7 +80,7 @@ CREATE TABLE order_reviews (
 CREATE TABLE geolocations (
     zip_code text NOT NULL,
     latitude numeric(9,6),
-    longitude numeric(9,6)
+    longitude numeric(9,6),
     city text,
     state text,
     PRIMARY KEY (zip_code, latitude, longitude)

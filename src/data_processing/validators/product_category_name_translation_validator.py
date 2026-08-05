@@ -1,6 +1,6 @@
 import pandas as pd
-from rules.product_category_name_translation_rules import  REQUIRED_COLUMNS
-class ProductCategoryTranslationValidator:
+from data_processing.rules.product_category_name_translation_rules import  REQUIRED_COLUMNS
+class ProductCategoryNameTranslationValidator:
     def __init__(self,translations):
         self.translations = translations
 
