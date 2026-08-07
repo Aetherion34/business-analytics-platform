@@ -19,7 +19,7 @@ class OrderReviewsCleaner:
         for column in REQUIRED_COLUMNS:
             self.remove_missing_values(column)
 
-        self.remove_reviews_id_duplicates()
+        self.remove_review_id_duplicates()
         self.remove_invalid_order_id()
 
         self.remove_invalid_review_score()
@@ -38,9 +38,9 @@ class OrderReviewsCleaner:
         mask = self.order_reviews[column].isna()
         self.order_reviews = self.order_reviews[~mask]
 
-    def remove_reviews_id_duplicates(self):
+    def remove_review_id_duplicates(self):
         self.order_reviews = self.order_reviews.drop_duplicates(
-            subset = ["reviews_id"],
+            subset = ["review_id"],
             keep = False
         )
 

@@ -12,11 +12,11 @@ VALID_STATES = [
     "SE", "TO"
 ]
 VALID_PAYMENT_TYPES = [
-    "credit_card"
-    "boleto"
-    "voucher"
-    "debit_card"
-    "not_defined"
+    "credit_card",
+    "boleto",
+    "voucher",
+    "debit_card",
+    "not_defined",
 ]
 MIN_REVIEW_SCORE = 1
 MAX_REVIEW_SCORE = 5

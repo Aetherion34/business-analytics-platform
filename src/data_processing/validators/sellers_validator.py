@@ -14,7 +14,7 @@ class SellersValidator():
         return errors_by_order
     def check_seller_id(self):
         mask = (self.sellers["seller_id"].isna() | 
-                self.sellers["seller_id"].duplicated(keep = "first"))
+                self.sellers["seller_id"].duplicated(keep = False))
         invalid_ids = self.sellers[mask]["seller_id"]
         return pd.Series("Invalid seller id", index = invalid_ids.values)
 

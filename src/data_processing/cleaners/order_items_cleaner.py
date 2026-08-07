@@ -15,12 +15,12 @@ class OrderItemsCleaner:
         }
         self.normalize_dates()
         self.clean_invalid_shipping_date()
+        
+        for column in REQUIRED_COLUMNS:
+            self.clean_missing_values(column)
 
         for column, valid_values in references.items():
             self.clean_invalid_reference(valid_values, column)
-
-        for column in REQUIRED_COLUMNS:
-            self.clean_missing_values(column)
 
         for column in POSITIVE_COLUMNS:
             self.clean_negative_values(column)

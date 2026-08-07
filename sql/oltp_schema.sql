@@ -14,7 +14,9 @@ CREATE TABLE products (
     description_length int,
     photo_quantity int,
     weight_g numeric(10, 2) CHECK (weight_g >= 0),
-    length_cm numeric(10, 2) CHECK (length_cm >= 0)
+    length_cm numeric(10, 2) CHECK (length_cm >= 0),
+    heigth_cm numeric(10, 2) CHECK (heigth_cm >= 0),
+    width_cm numeric(10, 2) CHECK (width_cm >= 0)
 );
 
 

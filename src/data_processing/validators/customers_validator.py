@@ -30,12 +30,11 @@ class CustomersValidator:
         return errors_by_order
 
     def check_inconsistent_customer_data(self):
-        grouped = self.customers.groupby("customer_unique_id")
-        count_uniques = grouped[["customer_zip_code_prefix", "customer_city", "customer_state"]].nunique()
-        errors = (count_uniques > 1).any(axis=1)
-        invalid_customers_id = errors[errors].index
-        customers_id_mask = (self.customers["customer_unique_id"].isin(invalid_customers_id))
-        customers_id = self.customers[customers_id_mask]["customer_id"]
+        mask = self.customers.duplicated(
+            subset = ["customer_unique_id", "customer_zip_code_prefix", "customer_city", "customer_state"],
+            keep = False
+        )
+        customers_id = self.customers[mask].index
         return pd.Series("Inconsistent customer data", index = customers_id.values)
 
     def check_customer_zip_code_prefix(self):

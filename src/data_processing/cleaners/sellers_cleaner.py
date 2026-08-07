@@ -5,7 +5,6 @@ class SellersCleaner():
     def __init__(self, sellers):
         self.sellers = sellers
 
-    #TODO
     def clean(self, error_list):
         self.normalize_zcp()
         self.normalize_city()
@@ -44,13 +43,13 @@ class SellersCleaner():
             .str.strip()
             .replace("", pd.NA)
             .str.replace(r"\s+", " ", regex=True)
-            .str.title()
+            .str.upper()
         )
         self.sellers["seller_state"] = formatted
 
     def remove_invalid_seller(self):
         mask = (self.sellers["seller_id"].isna() | 
-            self.sellers["seller_id"].duplicated(keep = "first"))
+            self.sellers["seller_id"].duplicated(keep = False))
         self.sellers = self.sellers[~mask]
 
     def remove_invalid_zcp(self):

@@ -8,7 +8,7 @@ class OrderReviewsValidator:
         
     def validate(self):
         errors = [
-            self.check_reviews_id_duplicates(),
+            self.check_review_id_duplicates(),
             self.check_order_id(),
         ]
 
@@ -28,26 +28,26 @@ class OrderReviewsValidator:
         return errors_by_order
     def check_missing_values(self, column):
         mask = self.order_reviews[column].isna()
-        index = self.order_reviews.loc[mask, "reviews_id"]
+        index = self.order_reviews.loc[mask, "review_id"]
         return pd.Series(f"missing {column}", index=index)
 
-    def check_reviews_id_duplicates(self):
+    def check_review_id_duplicates(self):
         mask = self.order_reviews.duplicated(
-            subset=["reviews_id"],
+            subset=["review_id"],
             keep=False
         )
-        index = self.order_reviews.loc[mask, "reviews_id"]
+        index = self.order_reviews.loc[mask, "review_id"]
         return pd.Series(f"invalid review id", index=index)
 
     def check_valid_dates(self, column):
         dates = pd.to_datetime(self.order_reviews[column], errors="coerce")
         mask = dates.isna()
-        index = self.order_reviews.loc[mask, "reviews_id"]
+        index = self.order_reviews.loc[mask, "review_id"]
         return pd.Series(f"invalid {column} format", index=index)
 
     def check_order_id(self):
         mask = (self.order_reviews["order_id"].isin(self.order_ids))
-        index = self.order_reviews.loc[~mask, "reviews_id"]
+        index = self.order_reviews.loc[~mask, "review_id"]
         return pd.Series("invalid order id", index=index)
 
     def check_review_score(self):
@@ -55,14 +55,14 @@ class OrderReviewsValidator:
             (self.order_reviews["review_score"] >= MIN_REVIEW_SCORE) &
             (self.order_reviews["review_score"] <= MAX_REVIEW_SCORE)
         )        
-        index = self.order_reviews.loc[~mask, "reviews_id"]
+        index = self.order_reviews.loc[~mask, "review_id"]
         return pd.Series("review score must be between 1 and 5", index=index)
 
     def check_review_answer_after_creation(self):
         creation_date = pd.to_datetime(self.order_reviews["review_creation_date"], errors="coerce")
         answer_date = pd.to_datetime(self.order_reviews["review_answer_timestamp"], errors="coerce")
         mask = creation_date <= answer_date
-        index = self.order_reviews.loc[~mask, "reviews_id"]
+        index = self.order_reviews.loc[~mask, "review_id"]
         return pd.Series(
             "review answer timestamp must be after review creation date",
             index=index
