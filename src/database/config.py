@@ -91,11 +91,11 @@ TABLE_CONFIGS = {
     "geolocations": {
         "file": PROCESSED_DIR / "geolocation_list.csv",
         "columns": {
-            "geolocation_zip_code_prefix": "",
-            "geolocation_lat": "zip_code",
-            "geolocation_lng": "latitude",
-            "geolocation_city": "longitude",
-            "geolocation_state": "city"
+            "geolocation_zip_code_prefix": "zip_code",
+            "geolocation_lat": "latitude",
+            "geolocation_lng": "longitude",
+            "geolocation_city": "city",
+            "geolocation_state": "state"
         }
     }
 }
