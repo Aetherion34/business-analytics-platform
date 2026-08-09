@@ -83,4 +83,48 @@ WHERE order_id NOT IN (
     SELECT order_id
     FROM orders
 )
--- TODO ... 
+
+UNION ALL
+
+SELECT
+    'order_items -> products',
+    COUNT(*)
+FROM order_items
+WHERE product_id NOT IN (
+    SELECT product_id
+    FROM products
+)
+
+UNION ALL
+
+SELECT
+    'order_items -> sellers',
+    COUNT(*)
+FROM order_items
+WHERE seller_id NOT IN (
+    SELECT seller_id
+    FROM sellers
+)
+
+UNION ALL
+
+SELECT
+    'order_payments -> order_id',
+    COUNT(*)
+FROM order_payments
+WHERE order_id NOT IN (
+    SELECT order_id
+    FROM orders
+)
+
+UNION ALL
+
+SELECT
+    'order_reviews -> order_id',
+    COUNT(*)
+FROM order_reviews
+WHERE order_id NOT IN (
+    SELECT order_id
+    FROM orders
+);
+
