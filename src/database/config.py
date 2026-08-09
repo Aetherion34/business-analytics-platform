@@ -38,7 +38,7 @@ TABLE_CONFIGS = {
     },
 
     "orders": {
-        "file": PROCESSED_DIR / "order_list.csv",
+        "file": PROCESSED_DIR / "orders_list.csv",
             "columns": {
                 "order_id": "order_id",
                 "customer_id": "customer_id",

@@ -16,12 +16,14 @@ def process_all_tables(engine):
             method = "multi",
             chunksize = 1000,
             if_exists = "replace",
+            index = False
             )
 
 def load_and_clean(table_name, config):
     path = config["file"]
     colum_mapping = config["columns"]
     raw_df = pd.read_csv(path)
+    print(f"Lunghezza {table_name}: {len(raw_df)}")
     formatted_df = raw_df.rename(columns = colum_mapping)
     return formatted_df
 
