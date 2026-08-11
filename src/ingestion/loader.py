@@ -55,36 +55,72 @@ CATEGORY_TRANSLATION_DTYPES = {
 
 
 def load_orders(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=ORDERS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=ORDERS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_customers(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=CUSTOMERS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=CUSTOMERS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_sellers(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=SELLERS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=SELLERS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_products(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=PRODUCTS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=PRODUCTS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_order_items(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=ORDER_ITEMS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=ORDER_ITEMS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_order_payments(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=ORDER_PAYMENTS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=ORDER_PAYMENTS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_order_reviews(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=ORDER_REVIEWS_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=ORDER_REVIEWS_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_geolocation(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=GEOLOCATION_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=GEOLOCATION_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    
 
 
 def load_product_category_translations(path, column=None):
-    return pd.read_csv(path, usecols=column, dtype=CATEGORY_TRANSLATION_DTYPES)  # type: ignore
+    try:
+        return pd.read_csv(path, usecols=column, dtype=CATEGORY_TRANSLATION_DTYPES)  # type: ignore
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CSV file not found: {path}") from e
+    

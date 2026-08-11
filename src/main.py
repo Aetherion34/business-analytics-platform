@@ -1,17 +1,9 @@
-from pipeline.customers_pipeline import run as customer_pipeline
-from pipeline.products_pipeline import run as product_pipeline
-from pipeline.sellers_pipeline import run as seller_pipeline
-from pipeline.orders_pipeline import run as order_pipeline
 from database import process_all_tables as db_loader, engine as db_engine
-
+from pipeline.main_pipeline import execute_pipelines
 
 def main():
-    customer_pipeline()
-    seller_pipeline()
-    product_pipeline()
-    order_pipeline()
     db_loader(db_engine)
-
+    execute_pipelines()
 if __name__ == "__main__":
     main()
     

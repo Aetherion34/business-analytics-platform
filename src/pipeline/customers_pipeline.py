@@ -19,3 +19,4 @@ def run():
     geolocation_cleaner = GeolocationCleaner(geolocations)
     geolocations_report = geolocation_validator.validate()
     geolocation_cleaner.clean(geolocations_report)
+    return {"customers" : "data/processed/customers_list.csv"}

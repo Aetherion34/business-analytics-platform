@@ -10,3 +10,4 @@ def run():
     sellers_cleaner = SellersCleaner(sellers)
     report = sellers_validator.validate()
     sellers_cleaner.clean(report)
+    return {"sellers" : "data/processed/sellers_list.csv"}
