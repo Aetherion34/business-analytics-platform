@@ -2,14 +2,16 @@ import pandas as pd
 import json
 from data_processing.constants import VALID_STATUS,DEFAULT_STATUS
 class OrdersCleaner:
-    def __init__(self, orders):
+    def __init__(self, orders, customer_ids):
         self.orders = orders
+        self.customer_ids = customer_ids
 
     def clean(self, error_list):
         self.remove_duplicates()
         self.remove_invalid_dates()
         self.remove_invalid_date_sequence()
         self.fix_invalid_status()
+        self.remove_invalid_customer_id()
 
         self.save_report(error_list)
         self.save_clean_data()
@@ -21,6 +23,10 @@ class OrdersCleaner:
     def fix_invalid_status(self):
         mask  = ~self.orders["order_status"].isin(VALID_STATUS)
         self.orders.loc[mask, "order_status"] = DEFAULT_STATUS
+
+    def remove_invalid_customer_id(self):
+        mask = self.orders["customer_id"].isin(self.customer_ids)
+        self.orders = self.orders[mask]
 
     def remove_invalid_dates(self):
         mask = ~self.orders[[
@@ -45,3 +51,5 @@ class OrdersCleaner:
 
     def save_clean_data(self):
         self.orders.to_csv("data/processed/orders_list.csv", index = False)
+        print(f"real customer lenght {len(self.orders.drop_duplicates(subset="customer_id", keep="first"))}")
+

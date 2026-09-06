@@ -127,4 +127,100 @@ WHERE order_id NOT IN (
     SELECT order_id
     FROM orders
 );
+--=======================================================
+-- 2. NULL / Missing Values
+-- ======================================================
+SELECT 
+    'customers' AS table,
+    COUNT(*)
+FROM customers
+WHERE(
+    customers.zip_code IS NULL OR
+    customers.city IS NULL OR
+    customers.state IS NULL
+    )
+UNION ALL
+
+SELECT
+    'products',
+    COUNT(*)
+FROM products
+WHERE (
+    products.name_length IS NULL OR
+    products.description_length IS NULL OR
+    products.photo_quantity IS NULL OR
+    products.weight_g IS NULL OR 
+    products.length_cm IS NULL OR
+    products.heigth_cm IS NULL OR
+    products.width_cm IS NULL
+)
+
+UNION ALL
+
+SELECT
+    'sellers',
+    COUNT(*)
+FROM sellers
+WHERE (
+    sellers.zip_code IS NULL OR
+    sellers.city IS NULL OR
+    sellers.state IS NULL
+    )
+
+UNION ALL
+
+SELECT
+    'orders',
+    COUNT(*)
+FROM orders
+WHERE (
+    orders.purchase_time IS NULL
+)
+
+UNION ALL
+
+SELECT
+    'order_items',
+    COUNT(*)
+FROM order_items
+WHERE (
+    order_items.shipping_limit IS NULL OR
+    order_items.price IS NULL OR
+    order_items.freight_value IS NULL
+)
+
+UNION ALL
+
+SELECT
+    'order_payments',
+    COUNT(*)
+FROM order_payments
+WHERE (
+    order_payments.payment_value IS NULL
+)
+
+UNION ALL
+
+SELECT
+    'order_reviews',
+    COUNT(*)
+FROM order_reviews
+WHERE (
+    order_reviews.review_score IS NULL OR
+    order_reviews.creation_timestamp IS NULL
+)
+
+UNION ALL
+
+SELECT
+    'geolocations',
+    COUNT(*)
+FROM geolocations
+WHERE (
+    geolocations.city IS NULL OR 
+    geolocations.state IS NULL
+)
+
+
+
 

@@ -6,4 +6,3 @@ def main():
     execute_pipelines()
 if __name__ == "__main__":
     main()
-    
