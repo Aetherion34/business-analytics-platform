@@ -37,7 +37,7 @@ class OrderItemsValidator:
         return pd.Series(f"missing {column}", index = index)
 
     def check_positive_values(self, column):
-        mask = (self.order_items[column] <= 0)
+        mask = (self.order_items[column] < 0)
         index = self.order_items.loc[mask].set_index(["order_id", "order_item_id"]).index
         return pd.Series(f"{column} must be positive", index = index)
 

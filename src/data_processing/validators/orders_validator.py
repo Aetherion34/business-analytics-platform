@@ -38,6 +38,7 @@ class OrdersValidator():
         errors_by_order = all_errors.groupby(level=0).apply(set).to_dict()
         return errors_by_order
 
+
     def check_invalid_customer_id(self):
         mask = ~self.orders["customer_id"].isin(self.customer_ids)
         order_ids = self.orders.loc[mask, "order_id"]

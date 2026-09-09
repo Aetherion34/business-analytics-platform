@@ -62,7 +62,7 @@ SELECT
     610158
 FROM geolocations;
 --=======================================================
--- 1. PRIMARY KEY CHECKS
+-- 2. PRIMARY KEY CHECKS
 -- ======================================================
 SELECT
     'orders -> customers' AS relationship,
@@ -128,7 +128,7 @@ WHERE order_id NOT IN (
     FROM orders
 );
 --=======================================================
--- 2. NULL / Missing Values
+-- 3. NULL / Missing Values
 -- ======================================================
 SELECT 
     'customers' AS table,
@@ -221,15 +221,15 @@ WHERE (
     geolocations.state IS NULL
 );
 --=======================================================
--- 3. Range / Invalid Values
+--4. Range / Invalid Values
 -- ======================================================
 SELECT 
     'products' AS table,
     COUNT(*) AS Invalid_values
 FROM products
 WHERE (
-    products.name_lenght < 0
-    products.description_length < 0
+    products.name_length < 0 OR
+    products.description_length < 0 OR
     products.photo_quantity < 0
 )
 
@@ -253,7 +253,7 @@ SELECT
     COUNT(*)
 FROM order_reviews  
 WHERE (
-    order_reviews.creation_timestamp < order_reviews.answear_timestamp
+    order_reviews.creation_timestamp < order_reviews.answer_timestamp
 )
 
 UNION ALL

@@ -42,7 +42,7 @@ class OrderItemsCleaner:
         self.order_items = self.order_items[~mask]
 
     def clean_negative_values(self, column):
-        mask = self.order_items[column] <= 0
+        mask = self.order_items[column] < 0
         self.order_items = self.order_items[~mask]
 
     def clean_invalid_shipping_date(self):

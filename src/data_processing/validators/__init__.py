@@ -7,3 +7,4 @@ from .orders_validator import OrdersValidator
 from .product_category_name_translation_validator import ProductCategoryNameTranslationValidator
 from .products_validator import ProductsValidator
 from .sellers_validator import SellersValidator
+from .consistency_validator import ConsistencyValidator

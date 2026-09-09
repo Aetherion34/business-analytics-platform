@@ -2,12 +2,10 @@ import pandas as pd
 from data_processing.constants import VALID_PAYMENT_TYPES
 from data_processing.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
 class OrderPaymentsValidator:
-    def __init__(self, order_payments, order_ids):
+    def __init__(self, order_payments):
         self.order_payments = order_payments
-        self.order_ids = order_ids
     def validate(self):
         errors = [
-            self.check_order_id(),
             self.check_payment_type(),
             self.check_payment_sequential_key_uniqueness(),
             self.check_payment_sequential(),
@@ -37,10 +35,6 @@ class OrderPaymentsValidator:
         index = self.order_payments.loc[~mask].set_index(["order_id","payment_sequential"]).index
         return pd.Series(f"invalid payment type", index = index)
 
-    def check_order_id(self):
-        mask = (self.order_payments["order_id"].isin(self.order_ids))
-        index = self.order_payments.loc[~mask].set_index(["order_id","payment_sequential"]).index
-        return pd.Series(f"invalid order id", index = index)
 
     def check_payment_sequential_key_uniqueness(self):
         mask = self.order_payments.duplicated(

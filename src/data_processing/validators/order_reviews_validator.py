@@ -2,14 +2,12 @@ import pandas as pd
 from data_processing.constants import MAX_REVIEW_SCORE, MIN_REVIEW_SCORE
 from data_processing.rules.order_reviews_rules import DATE_COLUMNS, REQUIRED_COLUMNS
 class OrderReviewsValidator:
-    def __init__(self, order_reviews, order_ids):
+    def __init__(self, order_reviews):
         self.order_reviews = order_reviews
-        self.order_ids = order_ids
         
     def validate(self):
         errors = [
-            self.check_review_id_duplicates(),
-            self.check_order_id(),
+            self.check_review_id_duplicates()
         ]
 
         for column in REQUIRED_COLUMNS:
@@ -45,10 +43,6 @@ class OrderReviewsValidator:
         index = self.order_reviews.loc[mask, "review_id"]
         return pd.Series(f"invalid {column} format", index=index)
 
-    def check_order_id(self):
-        mask = (self.order_reviews["order_id"].isin(self.order_ids))
-        index = self.order_reviews.loc[~mask, "review_id"]
-        return pd.Series("invalid order id", index=index)
 
     def check_review_score(self):
         mask = (

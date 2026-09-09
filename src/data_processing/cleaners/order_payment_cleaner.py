@@ -3,14 +3,12 @@ import json
 from data_processing.constants import VALID_PAYMENT_TYPES
 from data_processing.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
 class OrderPaymentCleaner:
-    def __init__(self, order_ids, order_payments):
-        self.order_ids = order_ids
+    def __init__(self, order_payments):
         self.order_payments = order_payments
 
         
     def clean(self,error_report):
         self.save_report(error_report)
-        self.clean_invalid_order_ids()
         self.clean_invalid_payment_type()
 
         for column in REQUIRED_COLUMNS:
@@ -32,10 +30,6 @@ class OrderPaymentCleaner:
     def clean_negative_values(self, column):
         mask = self.order_payments[column] <= 0
         self.order_payments = self.order_payments[~mask]
-
-    def clean_invalid_order_ids(self):
-        mask = self.order_payments["order_id"].isin(self.order_ids)
-        self.order_payments = self.order_payments[mask]
 
     def clean_invalid_payment_type(self):
         mask = self.order_payments["payment_type"].isin(VALID_PAYMENT_TYPES)

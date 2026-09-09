@@ -3,9 +3,8 @@ from data_processing.constants import MAX_REVIEW_SCORE, MIN_REVIEW_SCORE
 from data_processing.rules.order_reviews_rules import DATE_COLUMNS, REQUIRED_COLUMNS
 import json
 class OrderReviewsCleaner:
-    def __init__(self, order_reviews, order_ids):
+    def __init__(self, order_reviews):
         self.order_reviews = order_reviews
-        self.order_ids = order_ids
 
 
     def clean(self, error_report):
@@ -20,7 +19,6 @@ class OrderReviewsCleaner:
             self.remove_missing_values(column)
 
         self.remove_review_id_duplicates()
-        self.remove_invalid_order_id()
 
         self.remove_invalid_review_score()
         self.remove_invalid_review_answer_timestamp()
@@ -43,10 +41,6 @@ class OrderReviewsCleaner:
             subset = ["review_id"],
             keep = False
         )
-
-    def remove_invalid_order_id(self):
-        mask = self.order_reviews["order_id"].isin(self.order_ids)
-        self.order_reviews = self.order_reviews[mask]
 
     def remove_invalid_review_score(self):
         mask = (

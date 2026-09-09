@@ -7,3 +7,4 @@ from .orders_cleaner import OrdersCleaner
 from .product_category_name_translation_cleaner import ProductCategoryNameTranslationCleaner
 from .product_cleaner import ProductCleaner
 from .sellers_cleaner import SellersCleaner
+from .consistency_cleaner import ConsistencyCleaner

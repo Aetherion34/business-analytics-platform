@@ -16,7 +16,6 @@ class OrdersCleaner:
         self.save_report(error_list)
         self.save_clean_data()
         
-
     def remove_duplicates(self):
         self.orders = self.orders.drop_duplicates(subset="order_id", keep="first")
 
