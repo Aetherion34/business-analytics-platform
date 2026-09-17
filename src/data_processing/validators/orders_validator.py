@@ -67,7 +67,7 @@ class OrdersValidator():
         invalid_dates_order = self.orders[
             (self.orders["order_purchase_timestamp"] > self.orders["order_approved_at"]) |
             (self.orders["order_approved_at"] > self.orders["order_delivered_carrier_date"]) |
-            (self.orders["order_delivered_carrier_date"] > self.orders["order_delivered_customer_date"])
+            (self.orders["order_delivered_carrier_date"] >  self.orders["order_delivered_customer_date"])
         ]
         order_ids = invalid_dates_order["order_id"]
         return pd.Series("invalid date sequence", index=order_ids.values)

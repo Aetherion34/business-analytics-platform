@@ -2,10 +2,12 @@ import pandas as pd
 from data_processing.constants import VALID_PAYMENT_TYPES
 from data_processing.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
 class OrderPaymentsValidator:
-    def __init__(self, order_payments):
+    def __init__(self, order_payments, payments_total):
         self.order_payments = order_payments
+        self.payments_total = payments_total
     def validate(self):
         errors = [
+            self.check_payment_consistency(),
             self.check_payment_type(),
             self.check_payment_sequential_key_uniqueness(),
             self.check_payment_sequential(),
@@ -19,6 +21,35 @@ class OrderPaymentsValidator:
         all_errors = pd.concat(errors)
         errors_by_order = all_errors.groupby(level=[0,1]).apply(set).to_dict()
         return errors_by_order
+
+    def check_payment_consistency(self):
+        total_expected_payment = self.payments_total.groupby(
+            "order_id"
+        )[["price", "freight_value"]].sum().reset_index()
+
+        total_payment = self.order_payments.groupby(
+            "order_id"
+        )["payment_value"].sum().reset_index()
+
+        result = total_expected_payment.merge(
+            total_payment,
+            on="order_id"
+        )
+
+        result["expected_payment"] = result["price"] + result["freight_value"]
+        result = result.drop(columns=["price", "freight_value"])
+
+        mask = (result["expected_payment"] - result["payment_value"]).abs() > 1
+        invalid_order_ids = result.loc[mask].set_index(["order_id"])
+
+        index = pd.MultiIndex.from_arrays(
+            [invalid_order_ids.index, [0] * len(invalid_order_ids)],
+            names=["order_id", "level_1"]
+        )
+
+        return pd.Series("payment inconsistency", index=index)
+
+        
 
     def check_missing_values(self, column):
         mask = self.order_payments[column].isna()

@@ -49,6 +49,6 @@ class OrdersCleaner:
             json.dump(serializable, f, indent=4, ensure_ascii=False)
 
     def save_clean_data(self):
-        self.orders.to_csv("data/processed/orders_list.csv", index = False)
+        self.orders.to_csv("data/processed/order_list.csv", index = False)
         print(f"real customer lenght {len(self.orders.drop_duplicates(subset="customer_id", keep="first"))}")
 

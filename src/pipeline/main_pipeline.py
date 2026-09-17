@@ -9,5 +9,5 @@ def execute_pipelines():
     paths.update(customer_pipeline())
     paths.update(seller_pipeline())
     paths.update(product_pipeline())
-    product_order_ids, order_items_order_ids, review_order_ids, payment_order_ids = order_pipeline(paths)
-    consistency_pipeline(product_order_ids, order_items_order_ids, review_order_ids, payment_order_ids)
+    product_order_ids, order_items_order_ids, review_order_ids, payment_order_ids, order_ids = order_pipeline(paths)
+    consistency_pipeline(product_order_ids, order_items_order_ids, review_order_ids, payment_order_ids, order_ids)

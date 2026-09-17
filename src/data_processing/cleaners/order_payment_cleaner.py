@@ -3,12 +3,14 @@ import json
 from data_processing.constants import VALID_PAYMENT_TYPES
 from data_processing.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
 class OrderPaymentCleaner:
-    def __init__(self, order_payments):
+    def __init__(self, order_payments, payments_total):
         self.order_payments = order_payments
+        self.payments_total = payments_total
 
         
     def clean(self,error_report):
         self.save_report(error_report)
+        self.clean_payment_consistency()
         self.clean_invalid_payment_type()
 
         for column in REQUIRED_COLUMNS:
@@ -22,6 +24,29 @@ class OrderPaymentCleaner:
 
         self.save_clean_data()
         
+    def clean_payment_consistency(self):
+        total_expected_payment = self.payments_total.groupby(
+            "order_id"
+        )[["price", "freight_value"]].sum().reset_index()
+
+        total_payment = self.order_payments.groupby(
+            "order_id"
+        )["payment_value"].sum().reset_index()
+
+                
+        result = total_expected_payment.merge(
+            total_payment,
+            on="order_id"
+        )
+
+        result["expected_payment"] = result["price"] + result["freight_value"]
+        result = result.drop(columns=["price", "freight_value"])
+
+        mask = (result["expected_payment"] - result["payment_value"]).abs() > 1
+
+        invalid_order_ids = result[mask]["order_id"]
+
+        self.order_payments = self.order_payments[~(self.order_payments["order_id"].isin(invalid_order_ids))]
 
     def clean_missing_values(self, column):
         mask = self.order_payments[column].isna()

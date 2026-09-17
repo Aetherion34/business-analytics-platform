@@ -27,4 +27,4 @@ def run():
     translations_cleaner = ProductCategoryNameTranslationCleaner(product_category_translations)
     translations_report = translations_validator.validate()
     translations_cleaner.clean(translations_report)
-    return {"products" : "data/processed/products_list.csv", "product_category_name_translation_list.csv" : "data/processed/product_category_name_translation_list.csv_list.csv"}
+    return {"products" : "data/processed/products_list.csv", "product_category_name_translation" : "data/processed/product_category_name_translation_list.csv_list.csv"}

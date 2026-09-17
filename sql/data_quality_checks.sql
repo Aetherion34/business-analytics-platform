@@ -240,10 +240,9 @@ SELECT
     COUNT(*)
 FROM orders
 WHERE (
-    orders.purchase_time < orders.approval_time OR
-    orders.approval_time < orders.carrier_delivery_time OR
-    orders.carrier_delivery_time < orders.order_delivery_time OR
-    orders.order_delivery_time < orders.estimated_delivery_time
+    orders.purchase_time > orders.approval_time OR
+    orders.approval_time > orders.carrier_delivery_time OR
+    orders.carrier_delivery_time > orders.order_delivery_time OR
 )
 
 UNION ALL
@@ -253,7 +252,7 @@ SELECT
     COUNT(*)
 FROM order_reviews  
 WHERE (
-    order_reviews.creation_timestamp < order_reviews.answer_timestamp
+    order_reviews.creation_timestamp > order_reviews.answer_timestamp
 )
 
 UNION ALL
