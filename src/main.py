@@ -6,3 +6,17 @@ def main():
     execute_pipelines()
 if __name__ == "__main__":
     main()
+
+
+'''main.py
+│
+├── initialize_database()
+│       └── oltp_schema.sql
+│
+├── ingest_data()
+│
+├── build_warehouse()
+│       └── warehouse_schema.sql
+│
+└── run_quality_checks()
+        └── warehouse_dq.sql'''

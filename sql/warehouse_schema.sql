@@ -142,7 +142,7 @@ JOIN order_delivery_summary ods
 
 JOIN customers c
     ON ods.customer_id = c.customer_id;
-    
+
 CREATE TABLE seller_analytics AS -- 1 row = 1 seller
 WITH sellers_sales_summary AS (
     SELECT
@@ -314,7 +314,7 @@ SELECT
             AVG(
                 EXTRACT(
                     EPOCH FROM (
-                        oh.purchase_time - oh.previous_purchase_time
+                        oh.purchase_time:: timestamp - oh.previous_purchase_time:: timestamp
                     )
                 ) / 86400
             ),
@@ -400,14 +400,16 @@ WITH unique_order_parties AS (
 )
 
 SELECT
-    orw.order_id AS order_id,
+    uop.order_id AS order_id,
     uop.customer_id AS customer_id,
     uop.seller_id AS seller_id,
     orw.review_score AS review_score,
     c.state AS customer_state,
     o.purchase_time AS purchase_time
+FROM unique_order_parties uop
 
-FROM order_reviews orw
+LEFT JOIN order_reviews orw
+ON  uop.order_id = orw.order_id
 
 LEFT JOIN unique_order_parties uop
     ON orw.order_id = uop.order_id
@@ -432,6 +434,7 @@ WITH order_values AS (
 SELECT
     op.order_id AS order_id,
     op.payment_type AS payment_method,
+    op.payment_sequential AS payment_sequential,
     op.payment_installments AS installment_count,
 
     ROUND(
