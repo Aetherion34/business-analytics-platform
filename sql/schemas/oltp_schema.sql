@@ -70,6 +70,7 @@ CREATE TABLE order_payments (
 CREATE TABLE order_reviews (
     review_id text PRIMARY KEY,
     order_id text UNIQUE  NOT NULL,
+    review_id txt UNIQUE NOT NULL,
     review_score int CHECK (review_score BETWEEN 1 AND 5),
     title text,
     comment text,

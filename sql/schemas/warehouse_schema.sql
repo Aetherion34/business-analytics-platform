@@ -196,11 +196,11 @@ canceled_orders AS (
 
 SELECT
     s.seller_id AS seller_id,
-    sss.total_orders AS total_orders,
-    co.canceled_orders AS canceled_orders,
-    sss.total_sales_value AS total_sales_value,
-    sss.total_items_sold AS total_items_sold,
-    asr.average_seller_review_score AS average_review_score,
+    COALESCE(sss.total_orders, 0) AS total_orders,
+    COALESCE(co.canceled_orders, 0) AS canceled_orders,
+    COALESCE(sss.total_sales_value, 0) AS total_sales_value,
+    COALESCE(sss.total_items_sold, 0) AS total_items_sold,
+    COALESCE(asr.average_seller_review_score, 0) AS average_review_score,
     s.state AS seller_state
 
 FROM sellers s
@@ -218,8 +218,8 @@ LEFT JOIN canceled_orders co
 CREATE TABLE category_analytics AS -- 1 row = 1 category
 SELECT
     p.category AS category_name,
-    SUM(oi.price) AS total_category_value,
-    COUNT(oi.order_id) AS total_category_units_sold
+    COALESCE(SUM(oi.price), 0) AS total_category_value,
+    COALESCE(COUNT(oi.order_id), 0) AS total_category_units_sold
 FROM order_items oi
 
 JOIN products p
@@ -404,6 +404,7 @@ SELECT
     uop.customer_id AS customer_id,
     uop.seller_id AS seller_id,
     orw.review_score AS review_score,
+    orw.review_id AS review_id,
     c.state AS customer_state,
     o.purchase_time AS purchase_time
 FROM unique_order_parties uop
@@ -411,11 +412,8 @@ FROM unique_order_parties uop
 LEFT JOIN order_reviews orw
 ON  uop.order_id = orw.order_id
 
-LEFT JOIN unique_order_parties uop
-    ON orw.order_id = uop.order_id
-
 LEFT JOIN orders o
-    ON orw.order_id = o.order_id
+    ON uop.order_id = o.order_id
 
 LEFT JOIN customers c
     ON uop.customer_id = c.customer_id;
