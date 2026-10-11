@@ -1932,3 +1932,274 @@
 │ payment_value                           │
 │ average_installment_value               │
 └─────────────────────────────────────────┘
+__________________________________________________
+
+| order_seller_analytics                         |
+|________________________________________________|
+| order_id                                       |
+| seller_id                                      |
+| seller_state domain                                  |
+| seller_order_value  range                         |
+| distance_km  range                                  |
+|________________________________________________|
+
+__________________________________________________
+
+| order_analytics                                |
+|________________________________________________|
+| order_id                                       |
+| order_status     domain                              |
+| order_value     range                               |
+| purchase_time   range                               |
+| customer_state    domain                             |
+| item_counts   range                                 |
+| average_distance_km     range                       |
+|________________________________________________|
+
+__________________________________________________
+
+| delivery_analytics                             |
+|________________________________________________|
+| order_id                                       |
+| customer_id                                    |
+| purchase_time range                                 |
+| estimated_delivery_time    range                    |
+| delivery_time        range                          |
+| customer_state     domain                            |
+| order_weight    range                               |
+| delivery_days        range                          |
+| delay_days                                     |
+| order_status              domain                     |
+|________________________________________________|
+
+__________________________________________________
+
+| seller_analytics                               |
+|________________________________________________|
+| seller_id                                      |
+| total_orders  range                                 |
+| canceled_orders     range                           |
+| total_sales_value   range                           |
+| total_items_sold         range                      |
+| average_review_score      range               |
+| seller_state  domain                           |
+|________________________________________________|
+
+__________________________________________________
+
+| category_analytics                             |
+|________________________________________________|
+| category_name                                  |
+| total_category_value   range                        |
+| total_category_units_sold   range                   |
+|________________________________________________|
+
+__________________________________________________
+
+| canceled_order_analytics                       |
+|________________________________________________|
+| order_id                                       |
+| purchase_time   range                               |
+| customer_state domain                                 |
+| order_value            range                        |
+|________________________________________________|
+
+__________________________________________________
+
+| customer_analytics                             |
+|________________________________________________|
+| customer_id                                    |
+| total_orders  range                                 |
+| total_spending     range                            |
+| total_items_purchased   range                       |
+| last_purchase_time           range                  |
+| average_days_between_orders       range             |
+|________________________________________________|
+
+__________________________________________________
+
+| product_analytics                              |
+|________________________________________________|
+| product_id                                     |
+| total_units_sold range                              |
+| total_sales_value     range                         |
+| average_price              range                    |
+| average_review_score            range               |
+| product_weight_kg                    range          |
+|________________________________________________|
+
+__________________________________________________
+
+| review_analytics                               |
+|________________________________________________|
+| order_id                                       |
+| customer_id                                    |
+| seller_id                                      |
+| review_score range                                   |
+| review_id                                      |
+| customer_state  domain                               |
+| purchase_time         range                         |
+|________________________________________________|
+
+__________________________________________________
+
+| payment_analytics                              |
+|________________________________________________|
+| order_id                                       |
+| payment_method             domain                    |
+| payment_sequential               range              |
+| installment_count                     range         |
+| average_installment_value                  range    |
+|________________________________________________|
+#
+
+	
+
+Data Quality Check
+
+	
+
+Cosa verifica
+
+
+
+
+1
+
+	
+
+Row Count / Completeness
+
+	
+
+Numero di righe effettive rispetto a quello atteso per ogni tabella.
+
+
+
+
+2
+
+	
+
+Grain / Duplicate Checks
+
+	
+
+Rispetto della granularità prevista e assenza di duplicati nelle chiavi.
+
+
+
+
+3
+
+	
+
+NULL / Missing Values
+
+	
+
+Assenza di valori mancanti nei campi obbligatori.
+
+
+
+
+4
+
+	
+
+Range / Domain Checks
+
+	
+
+Valori entro intervalli validi e appartenenti ai domini previsti.
+
+
+
+
+5
+
+	
+
+Temporal Consistency
+
+	
+
+Coerenza cronologica tra date e timestamp.
+
+
+
+
+6
+
+	
+
+Referential Integrity
+
+	
+
+Presenza delle entità referenziate nelle tabelle collegate.
+
+
+
+
+7
+
+	
+
+Cross-Table Consistency
+
+	
+
+Coerenza degli stessi dati tra tabelle diverse.
+
+
+
+
+8
+
+	
+
+Aggregation Consistency
+
+	
+
+Coerenza tra aggregati nel warehouse e dati sorgente.
+
+
+
+
+9
+
+	
+
+Business Logic Checks
+
+	
+
+Rispetto delle regole di business, come importi e stati degli ordini.
+
+
+
+
+10
+
+	
+
+Entity Coverage / Completeness
+
+	
+
+Presenza delle entità che dovrebbero essere rappresentate nel warehouse.
+
+
+
+
+11
+
+	
+
+Final DQ Summary
+
+	
+
+Riepilogo dei controlli superati, falliti e del risultato complessivo.

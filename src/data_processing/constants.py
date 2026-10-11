@@ -20,3 +20,45 @@ VALID_PAYMENT_TYPES = [
 ]
 MIN_REVIEW_SCORE = 1
 MAX_REVIEW_SCORE = 5
+REQUIRED_DATES_BY_STATUS = {
+    "created": [
+        "order_purchase_timestamp",
+        "order_estimated_delivery_date"
+    ],
+    "approved": [
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_estimated_delivery_date"
+    ],
+    "processing": [
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_estimated_delivery_date"
+    ],
+    "shipped": [
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_estimated_delivery_date"
+    ],
+    "delivered": [
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+    ],
+    "canceled": [
+        "order_purchase_timestamp",
+        "order_estimated_delivery_date"
+    ],
+    "unavailable": [
+        "order_purchase_timestamp",
+        "order_estimated_delivery_date"
+    ],
+    "invoiced": [
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_estimated_delivery_date"
+    ]
+}
