@@ -1,9 +1,9 @@
 from pathlib import Path
-import ingestion.loader as Loader
-from data_processing.cleaners import CustomerCleaner, GeolocationCleaner
-from data_processing.validators import CustomersValidator, GeolocationValidator
+import data_processing.ingestion.csv_reader as Loader
+from data_processing.processing_core.cleaners import CustomerCleaner, GeolocationCleaner
+from data_processing.processing_core.validators import CustomersValidator, GeolocationValidator
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+BASE_DIR = Path(__file__).resolve().parents[3]
 DATA_DIR = BASE_DIR / "data" / "raw"
 
 

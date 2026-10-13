@@ -1,5 +1,5 @@
 from pathlib import Path
-PROCESSED_DIR = Path(__file__).resolve().parents[2] / "data" / "processed"
+PROCESSED_DIR = Path(__file__).resolve().parents[3] / "data" / "processed"
 TABLE_CONFIGS = {
     "customers": {
         "file": PROCESSED_DIR / "customers_list.csv",

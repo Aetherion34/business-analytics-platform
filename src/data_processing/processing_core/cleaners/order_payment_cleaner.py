@@ -1,7 +1,7 @@
 import pandas as pd
 import json
-from data_processing.constants import VALID_PAYMENT_TYPES
-from data_processing.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
+from data_processing.processing_core.constants import VALID_PAYMENT_TYPES
+from data_processing.processing_core.rules.order_payments_rules import POSITIVE_COLUMNS, REQUIRED_COLUMNS
 class OrderPaymentCleaner:
     def __init__(self, order_payments, payments_total):
         self.order_payments = order_payments

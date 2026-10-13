@@ -1,2 +1,1 @@
-from .connection import engine
-from .loader import process_all_tables 
+from .database_pipeline import setup_oltp_database

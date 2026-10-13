@@ -1,14 +1,14 @@
 from pathlib import Path
 import pandas as pd
-import ingestion.loader as Loader
-from data_processing.cleaners import (
+import data_processing.ingestion.csv_reader as Loader
+from data_processing.processing_core.cleaners import (
     ConsistencyCleaner
 )
-from data_processing.validators import (
+from data_processing.processing_core.validators import (
     ConsistencyValidator
 )
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+BASE_DIR = Path(__file__).resolve().parents[3]
 
 def run(product_order_ids, order_items_order_ids, review_order_ids, payment_order_ids, order_ids):
     order_payments_list = Loader.load_order_payments(BASE_DIR / "data/processed/order_payments_list.csv")

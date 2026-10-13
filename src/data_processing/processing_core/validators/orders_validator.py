@@ -1,21 +1,5 @@
-"""
-Validator module
-
-This module is responsible for checking the quality and consistency
-of raw data before it enters the cleaning process.
-
-It applies business rules to identify invalid records, such as:
-- duplicated IDs
-- missing required values
-- inconsistent dates
-- invalid relationships between fields
-
-The validator does not modify the original data.
-It separates valid records from invalid records and generates
-an error report for further analysis.
-"""
 import pandas as pd
-from data_processing.constants import VALID_STATUS,  REQUIRED_DATES_BY_STATUS
+from data_processing.processing_core.constants import VALID_STATUS,  REQUIRED_DATES_BY_STATUS
 
 class OrdersValidator():
     def __init__(self, orders, customer_ids):
@@ -31,8 +15,8 @@ class OrdersValidator():
             self.check_invalid_customer_id(),
             self.check_duplicates(),
             self.check_valide_status(),
-            self.invalid_date(),
-            self.invalid_date_order(),
+            self.check_invalid_date(),
+            self.check_invalid_date_sequence(),
             
         ])
         errors_by_order = all_errors.groupby(level=0).apply(set).to_dict()
@@ -55,7 +39,7 @@ class OrdersValidator():
         order_ids = invalid_rows["order_id"]
         return pd.Series("invalid status", index=order_ids.values)
 
-    def invalid_date(self):
+    def check_invalid_date(self):
         invalid_order_ids = []
 
         for status, required_columns in REQUIRED_DATES_BY_STATUS.items():
@@ -71,5 +55,17 @@ class OrdersValidator():
 
         return pd.Series("invalid date", index=invalid_order_ids)
 
-    def invalid_date_order(self):
-        pass
+    def check_invalid_date_sequence(self):
+        date_pairs = [
+            ("order_purchase_timestamp", "order_approved_at"),
+            ("order_approved_at", "order_delivered_carrier_date"),
+            ("order_delivered_carrier_date", "order_delivered_customer_date"),
+        ]
+        invalid_mask = pd.Series(False, index=self.orders.index)
+
+        for first, second in date_pairs:
+            date_present = (self.orders[first].notna() & self.orders[second].notna())
+            invalid_mask |= (date_present & (self.orders[first] > self.orders[second]))
+        invalid_order_ids = self.orders.loc[invalid_mask, "order_id"]
+
+        return pd.Series("invalid date sequence", index=invalid_order_ids)

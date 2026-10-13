@@ -1,20 +1,5 @@
-"""
-Validator module
-
-This module is responsible for checking the quality and consistency
-of raw data before it enters the cleaning process.
-
-It applies business rules to identify invalid records, such as:
-- missing required values
-- inconsistent data
-- invalid relationships between fields
-
-The validator does not modify the original data.
-It separates valid records from invalid records and generates
-an error report for further analysis.
-"""
 import pandas as pd
-from data_processing.constants import VALID_STATES
+from data_processing.processing_core.constants import VALID_STATES
 class CustomersValidator:
     def __init__(self, customers):
         self.customers = customers

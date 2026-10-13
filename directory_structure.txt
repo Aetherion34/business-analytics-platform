@@ -1,0 +1,126 @@
+business-analytics-platform/
+│
+├── data/
+│   
+│   ├── errors/
+│   │   
+│   │   ├── consistency_errors_report.json
+│   │   ├── customer_errors_report.json
+│   │   ├── geolocation_errors_report.json
+│   │   ├── order_errors_report.json
+│   │   ├── order_items_errors_report.json
+│   │   ├── order_payments_errors_report.json
+│   │   ├── order_reviews_errors_report.json
+│   │   ├── product_category_name_translation_errors_report.json
+│   │   ├── product_errors_report.json
+│   │   └── sellers_error_report.json
+│   ├── processed/
+│   │   
+│   │   ├── customers_list.csv
+│   │   ├── geolocation_list.csv
+│   │   ├── order_items_list.csv
+│   │   ├── order_list.csv
+│   │   ├── order_payments_list.csv
+│   │   ├── order_reviews_list.csv
+│   │   ├── product_category_name_translation_list.csv
+│   │   ├── products_list.csv
+│   │   └── sellers_list.csv
+│   └── raw/
+│       
+│       ├── olist_customers_dataset.csv
+│       ├── olist_geolocation_dataset.csv
+│       ├── olist_order_items_dataset.csv
+│       ├── olist_order_payments_dataset.csv
+│       ├── olist_order_reviews_dataset.csv
+│       ├── olist_orders_dataset.csv
+│       ├── olist_product_category_name_translation.csv
+│       ├── olist_products_dataset.csv
+│       ├── olist_sellers_dataset.csv
+│       └── test.py
+├── sql/
+│   
+│   ├── data_quality/
+│   │   
+│   │   ├── oltp_data_quality_checks.sql
+│   │   └── wharehouse_data_quality_checks.sql
+│   ├── reference_data/
+│   │   
+│   │   └── reference_data.sql
+│   └── schemas/
+│       
+│       ├── oltp_schema.sql
+│       └── warehouse_schema.sql
+├── src/
+│   
+│   ├── data_processing/
+│   │   
+│   │   ├── cleaners/
+│   │   │   
+│   │   │   ├── __init__.py
+│   │   │   ├── consistency_cleaner.py
+│   │   │   ├── customers_cleaner.py
+│   │   │   ├── geolocation_cleaner.py
+│   │   │   ├── order_items_cleaner.py
+│   │   │   ├── order_payment_cleaner.py
+│   │   │   ├── order_reviews_cleaner.py
+│   │   │   ├── orders_cleaner.py
+│   │   │   ├── product_category_name_translation_cleaner.py
+│   │   │   ├── product_cleaner.py
+│   │   │   └── sellers_cleaner.py
+│   │   ├── pipeline/
+│   │   │   
+│   │   │   ├── Consistency_pipeline.py
+│   │   │   ├── customers_pipeline.py
+│   │   │   ├── orders_pipeline.py
+│   │   │   ├── products_pipeline.py
+│   │   │   └── sellers_pipeline.py
+│   │   ├── rules/
+│   │   │   
+│   │   │   ├── geolocation_rules.py
+│   │   │   ├── order_items_rules.py
+│   │   │   ├── order_payments_rules.py
+│   │   │   ├── order_reviews_rules.py
+│   │   │   ├── orders_rule.py
+│   │   │   └── product_category_name_translation_rules.py
+│   │   ├── validators/
+│   │   │   
+│   │   │   ├── __init__.py
+│   │   │   ├── consistency_validator.py
+│   │   │   ├── customers_validator.py
+│   │   │   ├── geolocation_validator.py
+│   │   │   ├── order_items_validator.py
+│   │   │   ├── order_payments_validator.py
+│   │   │   ├── order_reviews_validator.py
+│   │   │   ├── orders_validator.py
+│   │   │   ├── product_category_name_translation_validator.py
+│   │   │   ├── products_validator.py
+│   │   │   └── sellers_validator.py
+│   │   └── constants.py
+│   ├── database/
+│   │   
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── connection.py
+│   │   ├── loader.py
+│   │   └── queries.py
+│   ├── ingestion/
+│   │   
+│   │   └── cvs_reader.py
+│   ├── pipeline/
+│   │   
+│   │   ├── Consistency_pipeline.py
+│   │   ├── customers_pipeline.py
+│   │   ├── main_pipeline.py
+│   │   ├── orders_pipeline.py
+│   │   ├── products_pipeline.py
+│   │   └── sellers_pipeline.py
+│   └── main.py
+├── .env
+├── .gitignore
+├── README.md
+├── analytics_design.md
+├── analytics_plan.md
+├── directory_structure.txt
+├── docker-compose.yml
+├── requirements.txt
+└── structure_checker.py

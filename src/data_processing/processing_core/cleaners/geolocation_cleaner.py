@@ -1,7 +1,7 @@
 import pandas as pd
 import json
-from data_processing.constants import VALID_STATES
-from data_processing.rules.geolocation_rules import  REQUIRED_COLUMNS
+from data_processing.processing_core.constants import VALID_STATES
+from data_processing.processing_core.rules.geolocation_rules import  REQUIRED_COLUMNS
 class GeolocationCleaner:
     def __init__(self, geolocations):
         self.geolocations = geolocations

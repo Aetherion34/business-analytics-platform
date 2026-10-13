@@ -1,4 +1,4 @@
-from data_processing.constants import VALID_STATES
+from data_processing.processing_core.constants import VALID_STATES
 import pandas as pd
 import json
 class CustomerCleaner():

@@ -1,5 +1,5 @@
 import pandas as pd
-from data_processing.constants import VALID_STATES
+from data_processing.processing_core.constants import VALID_STATES
 import json
 class SellersCleaner():
     def __init__(self, sellers):

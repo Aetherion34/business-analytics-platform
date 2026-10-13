@@ -1,6 +1,6 @@
 import pandas as pd
 import json
-from data_processing.rules.product_category_name_translation_rules import  REQUIRED_COLUMNS
+from data_processing.processing_core.rules.product_category_name_translation_rules import  REQUIRED_COLUMNS
 
 class ProductCategoryNameTranslationCleaner:
     def __init__(self,translations):

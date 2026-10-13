@@ -1,21 +1,21 @@
 import pandas as pd
 from pathlib import Path
-import ingestion.loader as Loader
-from data_processing.cleaners import (
+import data_processing.ingestion.csv_reader as Loader
+from data_processing.processing_core.cleaners import (
     OrdersCleaner,
     OrderItemsCleaner,
     OrderPaymentCleaner,
     OrderReviewsCleaner,
 )
-from data_processing.validators import (
+from data_processing.processing_core.validators import (
     OrdersValidator,
     OrderItemsValidator,
     OrderPaymentsValidator,
     OrderReviewsValidator,
 )
-from data_processing.rules import orders_rule
+from data_processing.processing_core.rules import orders_rule
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+BASE_DIR = Path(__file__).resolve().parents[3]
 RAW_DIR = BASE_DIR / "data" / "raw"
 
 def run(paths) -> tuple:

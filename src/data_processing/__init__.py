@@ -1,0 +1,1 @@
+from .data_processing_pipeline import execute_pipelines as run_data_processing

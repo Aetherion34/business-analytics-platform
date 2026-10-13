@@ -1,5 +1,5 @@
 import pandas as pd
-from data_processing.rules.order_items_rules import REQUIRED_COLUMNS, POSITIVE_COLUMNS
+from data_processing.processing_core.rules.order_items_rules import REQUIRED_COLUMNS, POSITIVE_COLUMNS
 class OrderItemsValidator:
     def __init__(self, order_items, order_ids, product_ids, seller_ids):
         self.order_ids = order_ids

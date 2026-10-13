@@ -1,9 +1,9 @@
 from pathlib import Path
-import ingestion.loader as Loader
-BASE_DIR = Path(__file__).resolve().parents[2]
+import data_processing.ingestion.csv_reader as Loader
+BASE_DIR = Path(__file__).resolve().parents[3]
 DATA_DIR = BASE_DIR / "data" / "raw"
-from data_processing.validators import SellersValidator
-from data_processing.cleaners import SellersCleaner
+from data_processing.processing_core.validators import SellersValidator
+from data_processing.processing_core.cleaners import SellersCleaner
 def run():
     sellers = Loader.load_sellers(DATA_DIR / "olist_sellers_dataset.csv")
     sellers_validator = SellersValidator(sellers)
