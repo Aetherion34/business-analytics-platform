@@ -97,7 +97,9 @@ postgres_data/
 # Secret files
 # =========================
 *.env
+*.ini
 # =========================
 # Planning files
 # =========================
 analytics_plan.md
+

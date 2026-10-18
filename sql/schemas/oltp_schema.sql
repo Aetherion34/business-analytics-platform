@@ -1,4 +1,4 @@
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
     customer_id text PRIMARY KEY,
     customer_unique_id text NOT NULL,
     zip_code text,
@@ -7,7 +7,7 @@ CREATE TABLE customers (
 );
 
 
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     product_id text PRIMARY KEY,
     category text NOT NULL,
     name_length int,
@@ -20,7 +20,7 @@ CREATE TABLE products (
 );
 
 
-CREATE TABLE sellers (
+CREATE TABLE IF NOT EXISTS sellers (
     seller_id text PRIMARY KEY,
     zip_code text,
     city text,
@@ -28,7 +28,7 @@ CREATE TABLE sellers (
 );
 
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
     order_id text PRIMARY KEY,
     customer_id text NOT NULL,
     order_status text NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE orders (
 );
 
 
-CREATE TABLE order_items (
+CREATE TABLE IF NOT EXISTS order_items (
     order_id text,
     order_item_id int NOT NULL,
     product_id text NOT NULL,
@@ -56,21 +56,20 @@ CREATE TABLE order_items (
 );
 
 
-CREATE TABLE order_payments (
+CREATE TABLE IF NOT EXISTS order_payments (
     order_id text,
     payment_sequential int NOT NULL,
     payment_type text  NOT NULL,
     payment_installments int NOT NULL CHECK(payment_installments > 0),
-    payment_value numeric(10, 2), CHECK (payment_value >= 0),
+    payment_value numeric(10, 2) CHECK (payment_value >= 0),
     PRIMARY KEY (order_id, payment_sequential),
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
 
 
-CREATE TABLE order_reviews (
+CREATE TABLE IF NOT EXISTS order_reviews (
     review_id text PRIMARY KEY,
-    order_id text UNIQUE  NOT NULL,
-    review_id txt UNIQUE NOT NULL,
+    order_id text NOT NULL,
     review_score int CHECK (review_score BETWEEN 1 AND 5),
     title text,
     comment text,
@@ -80,10 +79,11 @@ CREATE TABLE order_reviews (
 );
 
 
-CREATE TABLE geolocations (
+CREATE TABLE IF NOT EXISTS geolocations (
     zip_code text NOT NULL,
-    latitude numeric(9,6),
-    longitude numeric(9,6),
+-- High precision preserves geolocation accuracy and prevents coordinate collisions caused by rounding.
+    latitude NUMERIC(15,12),
+    longitude numeric(15,12),
     city text,
     state text,
     PRIMARY KEY (zip_code, latitude, longitude)

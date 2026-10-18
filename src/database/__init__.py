@@ -1,1 +1,1 @@
-from .database_pipeline import setup_oltp_database
+from .database_pipeline import setup_database_pipeline

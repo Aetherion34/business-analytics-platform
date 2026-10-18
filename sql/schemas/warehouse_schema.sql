@@ -1,4 +1,4 @@
-CREATE TABLE order_seller_analytics AS -- 1 row = 1 order + 1 seller
+CREATE TABLE IF NOT EXISTS order_seller_analytics AS -- 1 row = 1 order + 1 seller
 WITH average_geolocations AS (
     SELECT
         zip_code,
@@ -51,7 +51,7 @@ GROUP BY
     oi.order_id;
 
 
-CREATE TABLE order_analytics AS -- 1 row = 1 order
+CREATE TABLE IF NOT EXISTS order_analytics AS -- 1 row = 1 order
 WITH order_summary AS (
     SELECT
         oi.order_id AS order_id,
@@ -91,7 +91,7 @@ LEFT JOIN average_distances ad
     ON o.order_id = ad.order_id;
 
 
-CREATE TABLE delivery_analytics AS -- 1 row = 1 order
+CREATE TABLE IF NOT EXISTS delivery_analytics AS -- 1 row = 1 order
 WITH order_delivery_summary AS (
     SELECT
         oi.order_id AS order_id,
@@ -143,7 +143,7 @@ JOIN order_delivery_summary ods
 JOIN customers c
     ON ods.customer_id = c.customer_id;
 
-CREATE TABLE seller_analytics AS -- 1 row = 1 seller
+CREATE TABLE IF NOT EXISTS seller_analytics AS -- 1 row = 1 seller
 WITH sellers_sales_summary AS (
     SELECT
         oi.seller_id AS seller_id,
@@ -215,7 +215,7 @@ LEFT JOIN canceled_orders co
     ON s.seller_id = co.seller_id;
 
 
-CREATE TABLE category_analytics AS -- 1 row = 1 category
+CREATE TABLE IF NOT EXISTS category_analytics AS -- 1 row = 1 category
 SELECT
     p.category AS category_name,
     COALESCE(SUM(oi.price), 0) AS total_category_value,
@@ -229,7 +229,7 @@ GROUP BY
     p.category;
 
 
-CREATE TABLE canceled_order_analytics AS -- 1 row = 1 canceled order
+CREATE TABLE IF NOT EXISTS canceled_order_analytics AS -- 1 row = 1 canceled order
 SELECT
     o.order_id AS order_id,
     MAX(o.purchase_time) AS purchase_time,
@@ -250,7 +250,7 @@ GROUP BY
     o.order_id;
 
 
-CREATE TABLE customer_analytics AS -- 1 row = 1 customer
+CREATE TABLE IF NOT EXISTS customer_analytics AS -- 1 row = 1 customer
 WITH customer_order AS (
     SELECT
         o.customer_id AS customer_id,
@@ -332,7 +332,7 @@ GROUP BY
     c.customer_id;
 
 
-CREATE TABLE product_analytics AS -- 1 row = 1 product
+CREATE TABLE IF NOT EXISTS product_analytics AS -- 1 row = 1 product
 WITH clean_reviews AS (
     SELECT
         orw.order_id AS order_id,
@@ -382,7 +382,7 @@ GROUP BY
     p.product_id;
 
 
-CREATE TABLE review_analytics AS -- 1 row = 1 order + 1 seller + 1 review
+CREATE TABLE IF NOT EXISTS review_analytics AS -- 1 row = 1 order + 1 seller + 1 review
 WITH unique_order_parties AS (
     SELECT
         oi.order_id AS order_id,
@@ -419,7 +419,7 @@ LEFT JOIN customers c
     ON uop.customer_id = c.customer_id;
 
 
-CREATE TABLE payment_analytics AS -- 1 row = 1 payment record
+CREATE TABLE IF NOT EXISTS payment_analytics AS -- 1 row = 1 payment record
 WITH order_values AS (
     SELECT
         oi.order_id AS order_id,

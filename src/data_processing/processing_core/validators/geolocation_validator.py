@@ -54,7 +54,12 @@ class GeolocationValidator:
         return pd.Series(f"invalid longitude", index=index)
 
     def check_duplicates(self):
-        mask = self.geolocation.duplicated(keep = False)
+        mask = self.geolocation.duplicated(
+            subset=["geolocation_zip_code_prefix",
+                    "geolocation_lat",
+                    "geolocation_lng"],
+            keep=False
+        )
         index = self.geolocation.loc[mask].index
         return pd.Series(f"duplicate geolocation row", index=index)
         

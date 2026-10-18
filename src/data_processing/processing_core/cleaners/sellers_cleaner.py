@@ -71,4 +71,4 @@ class SellersCleaner():
             json.dump(serializable, f, indent = 4)
 
     def save_clean_data(self):
-        self.sellers.to_csv("data/processed/sellers_list.csv")
+        self.sellers.to_csv("data/processed/sellers_list.csv", index= False)
