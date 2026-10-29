@@ -9,7 +9,6 @@ class OrderReviewsCleaner:
 
     def clean(self, error_report):
         self.save_report(error_report)
-        self.save_report(error_report)
 
         for column in DATE_COLUMNS:
             self.normalize_dates(column)
@@ -39,7 +38,7 @@ class OrderReviewsCleaner:
     def remove_review_id_duplicates(self):
         self.order_reviews = self.order_reviews.drop_duplicates(
             subset = ["review_id"],
-            keep = False
+            keep = "first"
         )
 
     def remove_invalid_review_score(self):

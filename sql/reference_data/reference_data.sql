@@ -1,16 +1,16 @@
-CREATE TABLE IF NOT EXISTS valid_order_statuses (
+CREATE TABLE IF NOT EXISTS dq.valid_order_statuses (
     order_status TEXT PRIMARY KEY
 );
 
-CREATE TABLE IF NOT EXISTS valid_states (
+CREATE TABLE IF NOT EXISTS dq.valid_states (
     state TEXT PRIMARY KEY
 );
 
-CREATE TABLE IF NOT EXISTS valid_payment_methods (
+CREATE TABLE IF NOT EXISTS dq.valid_payment_methods (
     payment_method TEXT PRIMARY KEY
 );
 
-INSERT INTO valid_order_statuses (order_status)
+INSERT INTO dq.valid_order_statuses (order_status)
 VALUES
     ('delivered'),
     ('shipped'),
@@ -22,7 +22,7 @@ VALUES
     ('approved')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO valid_states (state)
+INSERT INTO dq.valid_states (state)
 VALUES
     ('SP'),
     ('MG'),
@@ -53,7 +53,7 @@ VALUES
     ('RR')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO valid_payment_methods (payment_method)
+INSERT INTO dq.valid_payment_methods (payment_method)
 VALUES
     ('credit_card'),
     ('boleto'),
@@ -61,4 +61,3 @@ VALUES
     ('debit_card'),
     ('not_defined')
 ON CONFLICT DO NOTHING;
-

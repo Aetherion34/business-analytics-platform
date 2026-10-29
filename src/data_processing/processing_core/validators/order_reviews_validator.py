@@ -32,7 +32,7 @@ class OrderReviewsValidator:
     def check_review_id_duplicates(self):
         mask = self.order_reviews.duplicated(
             subset=["review_id"],
-            keep=False
+            keep="first"
         )
         index = self.order_reviews.loc[mask, "review_id"]
         return pd.Series(f"invalid review id", index=index)

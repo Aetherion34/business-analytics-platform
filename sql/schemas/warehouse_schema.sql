@@ -305,8 +305,7 @@ SELECT
     ) AS total_items_purchased,
 
     COALESCE(
-        MAX(oh.purchase_time)::TEXT,
-        'No purchases'
+        MAX(oh.purchase_time)
     ) AS last_purchase_time,
 
     ROUND(
