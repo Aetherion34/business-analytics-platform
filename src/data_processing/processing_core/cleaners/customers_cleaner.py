@@ -2,8 +2,9 @@ from data_processing.processing_core.constants import VALID_STATES
 import pandas as pd
 import json
 class CustomerCleaner():
-    def __init__(self, customers):
+    def __init__(self, customers, geolocations):
         self.customers = customers
+        self.geolocations = geolocations
 
     def clean(self, error_list):
         self.normalize_customer_city()
@@ -13,6 +14,7 @@ class CustomerCleaner():
         self.remove_duplicate_customers()
 
         self.remove_empty_zcp()
+        self.remove_invalid_zcp()
         self.remove_empty_city()
 
         self.save_report(error_list)
@@ -57,6 +59,12 @@ class CustomerCleaner():
             keep = False
         )
         self.customers = self.customers[~mask]
+
+    def remove_invalid_zcp(self):
+        valid_zcps = self.geolocations["geolocation_zip_code_prefix"].unique()
+        mask = self.customers["customer_zip_code_prefix"].isin(valid_zcps)
+        self.customers = self.customers.loc[mask]
+
 
     def save_report(self, error_list):
         serializable ={seller_id : list(errors) for seller_id, errors in error_list.items()} 

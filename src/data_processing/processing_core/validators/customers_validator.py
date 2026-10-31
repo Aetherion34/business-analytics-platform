@@ -1,12 +1,14 @@
 import pandas as pd
 from data_processing.processing_core.constants import VALID_STATES
 class CustomersValidator:
-    def __init__(self, customers):
+    def __init__(self, customers, geolocations):
         self.customers = customers
+        self.geolocations = geolocations
 
     def validate(self):
         all_errors = pd.concat([
             self.check_inconsistent_customer_data(),
+            self.check_missing_customer_zip_code_prefix(),
             self.check_customer_zip_code_prefix(),
             self.check_customer_city(),
             self.check_customer_state(),
@@ -22,7 +24,7 @@ class CustomersValidator:
         customers_id = self.customers[mask].index
         return pd.Series("Inconsistent customer data", index = customers_id.values)
 
-    def check_customer_zip_code_prefix(self):
+    def check_missing_customer_zip_code_prefix(self):
         mask = self.customers["customer_zip_code_prefix"].isna()
         errors = self.customers[mask]
         customers_id = errors["customer_id"]
@@ -42,3 +44,10 @@ class CustomersValidator:
         errors = self.customers[mask]
         customers_id = errors["customer_id"]
         return pd.Series("Invalid state", index = customers_id.values)
+
+    def check_customer_zip_code_prefix(self):    
+        valid_zcps = self.geolocations['geolocation_zip_code_prefix'].unique()
+        mask = ~self.customers['customer_zip_code_prefix'].isin(valid_zcps)
+        errors = self.customers[mask]    
+        customers_id = errors['customer_id']
+        return pd.Series("Invalid zip code prefix", index=customers_id.values)

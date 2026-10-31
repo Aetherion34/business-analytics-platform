@@ -1,3 +1,4 @@
+CREATE SCHEMA IF NOT EXISTS public;
 CREATE TABLE IF NOT EXISTS customers (
     customer_id text PRIMARY KEY,
     customer_unique_id text NOT NULL,
